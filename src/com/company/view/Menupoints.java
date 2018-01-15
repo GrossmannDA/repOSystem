@@ -5,7 +5,7 @@ public enum Menupoints {
     CREATE_NEW_BOARD("1. Create new board", 1),
     CREATE_NEW_LIST("2. Create new list", 2),
     CREATE_NEW_CARD("3. Create new card", 3),
-    END("0. End", 0);
+    END("999. End", 999);
 
     private final String menupoint;
     private final int action;

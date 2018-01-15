@@ -1,7 +1,9 @@
 package com.company.view;
+// https://github.com/GrossmannDA/repOSystem
 
 import com.company.controller.Action;
 import com.company.controller.Check;
+import com.company.controller.Input;
 import com.company.model.Board;
 import com.company.model.Boardlist;
 import com.company.model.Card;
@@ -23,6 +25,9 @@ public class View implements Action {
     private Board board;
     private Card card;
     private List<Board> allBoards;
+    private int board_pos;
+    private int list_pos;
+
 
     public View() throws IOException, ClassNotFoundException {
 
@@ -33,19 +38,13 @@ public class View implements Action {
 
         while (!String.valueOf(Menupoints.END.getAction()).equals(input)) {
 
-            input = getInput();
+            input=getInput();
             validateUserInput(input);
         }
 
         System.out.println("Programm was aboarded");
     }
 
-    public String getInput() throws IOException {
-
-        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-
-        return this.input = keyboard.readLine();
-    }
 
     @Override
     public void create(Object object) throws IOException {
@@ -97,15 +96,17 @@ public class View implements Action {
 
                 for (Board board_1 : allBoards) {
 
-                    System.out.println("Choose " + (char) i + " " + board_1.toString());
+                    System.out.println("Choose " + i + " " + board_1.toString());
                     i++;
                 }
-                i = Integer.valueOf(getInput());
+                board_pos = Integer.valueOf(getInput());
+                boarl.setAssignt_to_board(board_pos);
 
-                if (i <= allBoards.size()) {
-                    allBoards.get(i).addBoardlist(boarl);
+                if (boarl.getAssignt_to_board() <= allBoards.size()) {
 
-                    System.out.println("The List was assingt to Board: " + allBoards.get(i).toString() + " " + boarl.toString());
+                    allBoards.get(board_pos).addBoardlist(boarl);
+
+                    System.out.println("The List was assingt to Board: " + allBoards.get(board_pos).toString() + " " + boarl.toString());
                 }
                 //create(new Boardlist(input));
                 //   update();
@@ -116,25 +117,46 @@ public class View implements Action {
 
         }
         if (String.valueOf(Menupoints.CREATE_NEW_CARD.getAction()).equals(input)) {
+            int count = 0;
 
             System.out.println("Please choose the boardlist from the board");
 
-            for(Board board: allBoards){
+            for (Board board : allBoards) {
                 System.out.println(board.toString());
-                for(Boardlist boardlist: board.getBoardlist()){
-                    System.out.println(  boardlist.toString());
-                }
-               // System.out.println(  allBoards.get(1).getBoardlist().get(0).toString());
+                for (Boardlist boardlist : board.getBoardlist()) {
+                    System.out.println("Input " + count + " to choose " + boardlist.toString());
+                    if (boardlist.getListCard() !=null) {
 
+                        for (Card card : boardlist.getListCard()) {
+                        System.out.println(" "+ card.toString());}
+                    }
+
+                    boardlist.setAssignt_to_board(allBoards.indexOf(board));
+                    count++;
+                }
+                // System.out.println(  allBoards.get(1).getBoardlist().get(0).toString());
             }
+            list_pos = Integer.valueOf(getInput());
+
             System.out.println("Please input the name of the Card");
             String cardname = getInput();
 
             card = new Card(cardname);
+            card.setAssignt_to_list(list_pos);
 
-            //create(new Boardlist(input));
-            //   update();
+
+            allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()).addListCard(card);
+
+            System.out.println("Card " + card.toString() + " was added to " + allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()));
+
         }
+    }
+
+    public String getInput() throws IOException {
+
+        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+
+        return this.input = keyboard.readLine();
     }
 
 }

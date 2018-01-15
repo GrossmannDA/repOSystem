@@ -5,6 +5,7 @@ public class Card {
     private String cardName;
     private String cardDescription;
     private String comment;
+    private int assignt_to_list;
 
     public Card(String cardName) {
         this.cardName = cardName;
@@ -41,5 +42,13 @@ public class Card {
                 ", cardDescription='" + cardDescription + '\'' +
                 ", comment='" + comment + '\'' +
                 '}';
+    }
+
+    public int getAssignt_to_list() {
+        return assignt_to_list;
+    }
+
+    public void setAssignt_to_list(int assignt_to_list) {
+        this.assignt_to_list = assignt_to_list;
     }
 }
