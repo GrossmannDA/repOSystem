@@ -4,6 +4,8 @@ import com.company.model.Board;
 import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
     String input;
@@ -40,7 +42,7 @@ public class Menu {
 
         FileInputStream fi = new FileInputStream(file);
         ObjectInputStream si = new ObjectInputStream(fi);
-        object = (Board)si.readObject();
+        object = si.readObject();
 
         si.close();
         return object;

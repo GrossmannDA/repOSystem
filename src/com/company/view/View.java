@@ -3,7 +3,6 @@ package com.company.view;
 
 import com.company.controller.Action;
 import com.company.controller.Check;
-import com.company.controller.Input;
 import com.company.model.Board;
 import com.company.model.Boardlist;
 import com.company.model.Card;
@@ -27,6 +26,9 @@ public class View implements Action {
     private List<Board> allBoards;
     private int board_pos;
     private int list_pos;
+    private String klammer_auf = "[";
+    private String klammer_zu = "]";
+    private String minus = "-";
 
 
     public View() throws IOException, ClassNotFoundException {
@@ -36,10 +38,19 @@ public class View implements Action {
         check = new Check();
         allBoards = new ArrayList<>();
 
+        if (!check.fileIsEmpty(file)) {
+            allBoards = (List) menu.deserializeObjeckt(file);
+        }
+
         while (!String.valueOf(Menupoints.END.getAction()).equals(input)) {
 
-            input=getInput();
+            input = getInput();
             validateUserInput(input);
+        }
+
+        if (allBoards != null) {
+            menu.serializeObjeckt(allBoards, file);
+            System.out.println("Boardes are saved");
         }
 
         System.out.println("Programm was aboarded");
@@ -63,8 +74,9 @@ public class View implements Action {
     }
 
     public void validateUserInput(String input) throws IOException, ClassNotFoundException {
+        String str_menu = klammer_auf + "1" + minus + "3" + klammer_zu;
 
-        while (check.isInputStringValid(input) == false) {
+        if (!check.isInputStringValid(input, str_menu)) {
 
             System.out.println("Your input is not valid! Please repeat");
         }
@@ -93,6 +105,8 @@ public class View implements Action {
 
                 System.out.println("To wich Board do you want add this List?: ");
                 int i = 0;
+                String size = String.valueOf(allBoards.size()-1);
+                String regex_size = klammer_auf + "0" + minus + size + klammer_zu;
 
                 for (Board board_1 : allBoards) {
 
@@ -100,14 +114,21 @@ public class View implements Action {
                     i++;
                 }
                 board_pos = Integer.valueOf(getInput());
-                boarl.setAssignt_to_board(board_pos);
 
-                if (boarl.getAssignt_to_board() <= allBoards.size()) {
+                if (check.isInputStringValid(String.valueOf(board_pos), regex_size)) {
 
-                    allBoards.get(board_pos).addBoardlist(boarl);
+                    boarl.setAssignt_to_board(board_pos);
 
-                    System.out.println("The List was assingt to Board: " + allBoards.get(board_pos).toString() + " " + boarl.toString());
+                    if (boarl.getAssignt_to_board() <= allBoards.size()) {
+
+                        allBoards.get(board_pos).addBoardlist(boarl);
+
+                        System.out.println("The List was assingt to Board: " + allBoards.get(board_pos).toString() + " " + boarl.toString());
+                    }
+                } else {
+                    System.out.println("Wrong Input. Please repeat.");
                 }
+
                 //create(new Boardlist(input));
                 //   update();
 
@@ -118,17 +139,23 @@ public class View implements Action {
         }
         if (String.valueOf(Menupoints.CREATE_NEW_CARD.getAction()).equals(input)) {
             int count = 0;
+           ArrayList <Boolean> value = new ArrayList<>();
 
             System.out.println("Please choose the boardlist from the board");
 
             for (Board board : allBoards) {
                 System.out.println(board.toString());
+                if(check.isListAvalable(board.getBoardlist())){
+                    value.add(check.isListAvalable(board.getBoardlist()));
+                }
                 for (Boardlist boardlist : board.getBoardlist()) {
+
                     System.out.println("Input " + count + " to choose " + boardlist.toString());
-                    if (boardlist.getListCard() !=null) {
+                    if (boardlist.getListCard() != null) {
 
                         for (Card card : boardlist.getListCard()) {
-                        System.out.println(" "+ card.toString());}
+                            System.out.println(" " + card.toString());
+                        }
                     }
 
                     boardlist.setAssignt_to_board(allBoards.indexOf(board));
@@ -136,19 +163,23 @@ public class View implements Action {
                 }
                 // System.out.println(  allBoards.get(1).getBoardlist().get(0).toString());
             }
-            list_pos = Integer.valueOf(getInput());
 
-            System.out.println("Please input the name of the Card");
-            String cardname = getInput();
+            if(value.contains(true) ) {
+                list_pos = Integer.valueOf(getInput());
 
-            card = new Card(cardname);
-            card.setAssignt_to_list(list_pos);
+                System.out.println("Please input the name of the Card");
+                String cardname = getInput();
+
+                card = new Card(cardname);
+                card.setAssignt_to_list(list_pos);
 
 
-            allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()).addListCard(card);
+                allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()).addListCard(card);
 
-            System.out.println("Card " + card.toString() + " was added to " + allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()));
-
+                System.out.println("Card " + card.toString() + " was added to " + allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()));
+            }else{
+                System.out.println("No List exists. Please create the List befor Card");
+            }
         }
     }
 
