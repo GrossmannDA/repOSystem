@@ -25,7 +25,7 @@ public class View implements Action {
     private Card card;
     private List<Board> allBoards;
     private int board_pos;
-    private int list_pos;
+    private String list_pos;
     private String klammer_auf = "[";
     private String klammer_zu = "]";
     private String minus = "-";
@@ -104,29 +104,29 @@ public class View implements Action {
                 Boardlist boarl = new Boardlist(boardlistname);
 
                 System.out.println("To wich Board do you want add this List?: ");
-                int i = 0;
-                String size = String.valueOf(allBoards.size()-1);
+
+                String size = String.valueOf(allBoards.size() - 1);
                 String regex_size = klammer_auf + "0" + minus + size + klammer_zu;
 
                 for (Board board_1 : allBoards) {
 
-                    System.out.println("Choose " + i + " " + board_1.toString());
-                    i++;
+                    System.out.println("Choose " + allBoards.indexOf(board_1) + " " + board_1.toString());
+
                 }
                 board_pos = Integer.valueOf(getInput());
 
                 if (check.isInputStringValid(String.valueOf(board_pos), regex_size)) {
 
-                    boarl.setAssignt_to_board(board_pos);
+                    //     boarl.setAssignt_to_board(board_pos);
 
-                    if (boarl.getAssignt_to_board() <= allBoards.size()) {
+                    //  if (boarl.getAssignt_to_board() <= allBoards.size()) {
 
-                        allBoards.get(board_pos).addBoardlist(boarl);
+                    allBoards.get(board_pos).addBoardlist(boarl);
 
-                        System.out.println("The List was assingt to Board: " + allBoards.get(board_pos).toString() + " " + boarl.toString());
-                    }
-                } else {
-                    System.out.println("Wrong Input. Please repeat.");
+                    System.out.println("The List was assingt to Board: " + allBoards.get(board_pos).toString() + " " + boarl.toString());
+                    // }
+                    //  } else {
+                    // System.out.println("Wrong Input. Please repeat.");
                 }
 
                 //create(new Boardlist(input));
@@ -139,45 +139,67 @@ public class View implements Action {
         }
         if (String.valueOf(Menupoints.CREATE_NEW_CARD.getAction()).equals(input)) {
             int count = 0;
-           ArrayList <Boolean> value = new ArrayList<>();
+            ArrayList<Boolean> value = new ArrayList<>();
 
             System.out.println("Please choose the boardlist from the board");
 
             for (Board board : allBoards) {
                 System.out.println(board.toString());
-                if(check.isListAvalable(board.getBoardlist())){
+                if (check.isListAvalable(board.getBoardlist())) {
                     value.add(check.isListAvalable(board.getBoardlist()));
                 }
                 for (Boardlist boardlist : board.getBoardlist()) {
 
-                    System.out.println("Input " + count + " to choose " + boardlist.toString());
-                    if (boardlist.getListCard() != null) {
+                    System.out.println("Input Boardnumber " + allBoards.indexOf(board) + " ListNumber " + board.getBoardlist().indexOf(boardlist) + " to choose " + boardlist.toString() + " : " + allBoards.indexOf(board) + board.getBoardlist().indexOf(boardlist));
+
+                    if (boardlist.getListCard().size() > 0) {
 
                         for (Card card : boardlist.getListCard()) {
-                            System.out.println(" " + card.toString());
+                            System.out.println("      " + card.toString());
                         }
                     }
 
-                    boardlist.setAssignt_to_board(allBoards.indexOf(board));
+                    //    boardlist.setAssignt_to_board(allBoards.indexOf(board));
                     count++;
                 }
                 // System.out.println(  allBoards.get(1).getBoardlist().get(0).toString());
             }
 
-            if(value.contains(true) ) {
-                list_pos = Integer.valueOf(getInput());
+            if (value.contains(true)) {
+                int listsize = value.size();
+                String listsize_regex;
+                // if (String.valueOf(listsize - 1).equals(0)) {
+                //   listsize_regex ="0";
+                //}else{
+                listsize_regex = klammer_auf + "0" + minus + String.valueOf(listsize - 1) + klammer_zu;
+                //}
+                list_pos = getInput();
+                char ch[] = list_pos.toCharArray();
+
+
+                String boardPosition = String.valueOf(ch[0]);
+                String listPosition = String.valueOf(ch[1]);
+
+
+                // if (check.isInputStringValid(String.valueOf(boardPosition), listsize_regex)) {
 
                 System.out.println("Please input the name of the Card");
                 String cardname = getInput();
 
                 card = new Card(cardname);
-                card.setAssignt_to_list(list_pos);
+                Board board = allBoards.get(Integer.parseInt(boardPosition));
+                Boardlist boardlist = board.getBoardlist().get(Integer.parseInt(listPosition));
 
+                boardlist.addListCard(card);
+                //  allBoards.get(boardPosition).getBoardlist().get(listPosition).addListCard(card);
 
-                allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()).addListCard(card);
+                //    allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()).addListCard(card);
 
-                System.out.println("Card " + card.toString() + " was added to " + allBoards.get(board_pos).getBoardlist().get(card.getAssignt_to_list()));
-            }else{
+                System.out.println("Card " + card.toString() + " was added to " + boardlist.toString());
+                //    } else {
+                //      System.out.println("Wrong input!");
+                //}
+            } else {
                 System.out.println("No List exists. Please create the List befor Card");
             }
         }

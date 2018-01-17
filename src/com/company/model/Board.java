@@ -10,6 +10,7 @@ public class Board implements Serializable {
 
     private List<Boardlist> boardlist= new ArrayList<>();
 
+
     public Board(String board_name) {
         this.board_name = board_name;
     }

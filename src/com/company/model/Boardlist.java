@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Boardlist implements Serializable {
     private String boardlistName;
-    private int assignt_to_board;
 
     private List<Card> listCard = new ArrayList<>();
+
 
     public Boardlist(String boardlistName) {
         this.boardlistName = boardlistName;
@@ -37,11 +37,5 @@ public class Boardlist implements Serializable {
                 '}';
     }
 
-    public int getAssignt_to_board() {
-        return assignt_to_board;
-    }
 
-    public void setAssignt_to_board(int assignt_to_board) {
-        this.assignt_to_board = assignt_to_board;
-    }
 }
