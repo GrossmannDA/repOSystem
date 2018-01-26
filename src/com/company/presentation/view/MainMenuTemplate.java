@@ -5,6 +5,8 @@ public class MainMenuTemplate {
     private static final String template = "Please ..:\n%s";
 
     public String format(String menuItem) {
+
+
         return String.format(template, menuItem);
     }
 
