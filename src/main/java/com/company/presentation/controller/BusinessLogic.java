@@ -20,7 +20,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BL {
+/**
+ * Keeps all business logic and needs to be refactored
+ */
+public class BusinessLogic {
 
   BoardService boardService;
   CardFileService cardFileService;
@@ -38,10 +41,7 @@ public class BL {
   private String klammer_zu = "]";
   private String minus = "-";
 
-  public BL() throws IOException, ClassNotFoundException {
-    Util util = new Util();
-    util.createFile();
-
+  public BusinessLogic() throws IOException, ClassNotFoundException {
     //  file = new File("SerTest.bin");
     menu = new Menu();
     check = new Check();
@@ -49,10 +49,15 @@ public class BL {
     boardService = new BoardService();
     boardlistFileService = new BoardlistFileService();
     cardFileService = new CardFileService();
+  }
 
+  public void runApplication() throws IOException, ClassNotFoundException {
+    Util util = new Util();
+    util.createFile();
     if (!check.fileIsEmpty(util.getFile())) {
       boardService.setAllBoards((List) deserializeObjeckt(util.getFile()));
     }
+
     while (!String.valueOf(Menupoints.END.getAction()).equals(input)) {
 
       input = getInput();
@@ -96,14 +101,7 @@ public class BL {
       System.out.println("Please input the name of the board");
       String boardname = getInput();
 
-      boardService.create(boardname);
-
-      //   create(new Board(getInput()));
-      System.out.println("Board was created  " + boardService.getBoard().toString());
-
-      // allBoards.add(boardService.getBoard());
-      boardService.addAllBoards();
-      // update();
+      createBoard(boardname);
     }
 
     if (String.valueOf(Menupoints.CREATE_NEW_LIST.getAction()).equals(input)) {
@@ -221,6 +219,21 @@ public class BL {
         System.out.println("No List exists. Please create the List befor Card");
       }
     }
+  }
+
+  public void createBoard(String boardname) {
+    boardService.create(boardname);
+
+    //   create(new Board(getInput()));
+    System.out.println("Board was created  " + boardService.getBoard().toString());
+
+    // allBoards.add(boardService.getBoard());
+    boardService.addAllBoards();
+    // update();
+  }
+
+  public BoardService getBoardService() {
+    return boardService;
   }
 
   public String getInput() throws IOException {
