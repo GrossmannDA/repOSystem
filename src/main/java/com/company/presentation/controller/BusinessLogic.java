@@ -25,10 +25,10 @@ import java.util.List;
  */
 public class BusinessLogic {
 
-  BoardService boardService;
-  CardFileService cardFileService;
-  Board board;
-  BoardlistFileService boardlistFileService;
+  private BoardService boardService;
+  private CardFileService cardFileService;
+  private Board board;
+  private BoardlistFileService boardlistFileService;
   private String input;
   private Menu menu;
   private File file;
@@ -41,7 +41,27 @@ public class BusinessLogic {
   private String klammer_zu = "]";
   private String minus = "-";
 
-  public BusinessLogic() throws IOException, ClassNotFoundException {
+  private String boardPosition;
+  private String listPosition;
+
+  public String getBoardPosition() {
+    return boardPosition;
+  }
+
+  public void setBoardPosition(String boardPosition) {
+    this.boardPosition = boardPosition;
+  }
+
+  public String getListPosition() {
+    return listPosition;
+  }
+
+  public void setListPosition(String listPosition) {
+    this.listPosition = listPosition;
+  }
+  private Print print;
+
+  public BusinessLogic() throws IOException {
     //  file = new File("SerTest.bin");
     menu = new Menu();
     check = new Check();
@@ -49,11 +69,13 @@ public class BusinessLogic {
     boardService = new BoardService();
     boardlistFileService = new BoardlistFileService();
     cardFileService = new CardFileService();
+    print = new Print(boardlistFileService, boardService, cardFileService);
   }
 
   public void runApplication() throws IOException, ClassNotFoundException {
     Util util = new Util();
     util.createFile();
+
     if (!check.fileIsEmpty(util.getFile())) {
       boardService.setAllBoards((List) deserializeObjeckt(util.getFile()));
     }
@@ -64,6 +86,11 @@ public class BusinessLogic {
       validateUserInput(input);
     }
 
+    boardSerialize(util);
+  }
+
+  public void boardSerialize(Util util) throws IOException {
+
     if (boardService.getAllBoards() != null) {
       serializeObjeckt(boardService.getAllBoards(), util.getFile());
       System.out.println("Boardes are saved");
@@ -72,23 +99,7 @@ public class BusinessLogic {
     System.out.println("Programm was aboarded");
   }
 
-
-  public void create(Object object) throws IOException {
-    serializeObjeckt(object, file);
-  }
-
-  public void update() throws IOException, ClassNotFoundException {
-
-    Board board = (Board) deserializeObjeckt(file);
-    // board.addBoardlist(boardlist);
-    System.out.println(board.toString());
-  }
-
-  public void delete(Object object) {
-
-  }
-
-  public void validateUserInput(String input) throws IOException, ClassNotFoundException {
+  public void validateUserInput(String input) throws IOException {
     String str_menu = klammer_auf + "1" + minus + "3" + klammer_zu;
 
     if (!check.isInputStringValid(input, str_menu)) {
@@ -98,50 +109,33 @@ public class BusinessLogic {
 
     if (String.valueOf(Menupoints.CREATE_NEW_BOARD.getAction()).equals(input)) {
 
-      System.out.println("Please input the name of the board");
-      String boardname = getInput();
+      String boardname = queryBoardName();
 
       createBoard(boardname);
     }
 
     if (String.valueOf(Menupoints.CREATE_NEW_LIST.getAction()).equals(input)) {
 
-      if (check.isBoardAvalable(boardService.getAllBoards()) == true) {
+      if (check.isBoardAvalable(boardService.getAllBoards())) {
 
-        System.out.println("Please input the name of the List");
+        String boardlistname = queryNameOfTheList();
 
-        String boardlistname = getInput();
-
-        boardlistFileService.create(boardlistname);
-        //Boardlist boarl = new Boardlist(boardlistname);
+        createBoardlist(boardlistname);
 
         System.out.println("To wich Board do you want add this List?: ");
 
         String size = String.valueOf(boardService.getAllBoards().size() - 1);
         String regex_size = klammer_auf + "0" + minus + size + klammer_zu;
 
-        for (Board board_1 : boardService.getAllBoards()) {
+        print.listAssignToBoardPrint();
 
-          System.out.println(
-              "Choose " + boardService.getAllBoards().indexOf(board_1) + " " + board_1.toString());
-
-        }
         board_pos = Integer.valueOf(getInput());
 
         if (check.isInputStringValid(String.valueOf(board_pos), regex_size)) {
 
-          boardService.getAllBoards().get(board_pos).addBoardlist(boardlistFileService.getBoardlist());
-
-          System.out.println(
-              "The List was assingt to Board: " + boardService.getAllBoards().get(board_pos)
-                  .toString() + " " + boardlistFileService.getBoardlist().toString());
-          // }
-          //  } else {
-          // System.out.println("Wrong Input. Please repeat.");
+          assignBoardlistToBoard();
+          print.assignBoardlistToBoardPrint();
         }
-
-        //create(new Boardlist(input));
-        //   update();
 
       } else {
         System.out.println("There are no boards avalable. Please create the board befor list");
@@ -149,34 +143,23 @@ public class BusinessLogic {
 
     }
     if (String.valueOf(Menupoints.CREATE_NEW_CARD.getAction()).equals(input)) {
-      int count = 0;
+
       ArrayList<Boolean> value = new ArrayList();
 
       System.out.println("Please choose the boardlist from the board");
 
       for (Board board : boardService.getAllBoards()) {
-        System.out.println(board.toString());
+        print.boardPrint(board);
+
         if (check.isListAvalable(board.getBoardlist())) {
           value.add(check.isListAvalable(board.getBoardlist()));
         }
         for (Boardlist boardlist : board.getBoardlist()) {
 
-          System.out.println(
-              "Input Boardnumber " + boardService.getAllBoards().indexOf(board) + " ListNumber " + board
-                  .getBoardlist().indexOf(boardlist) + " to choose " + boardlist.toString() + " : "
-                  + boardService.getAllBoards().indexOf(board) + board.getBoardlist().indexOf(boardlist));
+          print.queryCardAssignToBoardlistPrint(board, boardlist);
 
-          if (boardlist.getListCard().size() > 0) {
-
-            for (Card card : boardlistFileService.getBoardlist().getListCard()) {
-              System.out.println("      " + card.toString());
-            }
-          }
-
-          //    boardlist.setAssignt_to_board(allBoards.indexOf(board));
-
+          print.cardPrint(boardlist);
         }
-        // System.out.println(  allBoards.get(1).getBoardlist().get(0).toString());
       }
 
       if (value.contains(true)) {
@@ -189,29 +172,22 @@ public class BusinessLogic {
         listsize_regex = klammer_auf + "0" + minus + String.valueOf(listsize - 1) + klammer_zu;
         //}
 
-        list_pos = getInput();
-
-        char ch[] = list_pos.toCharArray();
-
-        String boardPosition = String.valueOf(ch[0]);
-        String listPosition = String.valueOf(ch[1]);
-
         // if (check.isInputStringValid(String.valueOf(boardPosition), listsize_regex)) {
+        listPosition = getInput();
+        parseListAndBoardPosition(listPosition);
 
-        System.out.println("Please input the name of the Card");
-        String cardname = getInput();
+        String cardname = inputCardName();
 
         //   card = new Card(cardname);
         cardFileService.createCard(cardname);
         try {
 
-          Board board = boardService.getAllBoards().get(Integer.parseInt(boardPosition));
-          Boardlist boardlist = board.getBoardlist().get(Integer.parseInt(listPosition));
+          getBoardAndBoardlist();
 
-          boardlistFileService.getBoardlist().addListCard(cardFileService.getCard());
+          addCardToBoardlist();
 
-          System.out.println("Card " + cardFileService.getCard().toString() + " was added to " + boardlistFileService
-              .getBoardlist().toString());
+          print.cardWasAddedToPrint();
+
         } catch (IndexOutOfBoundsException e) {
           System.out.println("Wrong Input. Please Repeat");
         }
@@ -221,15 +197,55 @@ public class BusinessLogic {
     }
   }
 
+  public String queryBoardName() throws IOException {
+    System.out.println("Please input the name of the board");
+    return getInput();
+  }
+
+  public String queryNameOfTheList() throws IOException {
+    System.out.println("Please input the name of the List");
+
+    return getInput();
+  }
+
+
+  public void addCardToBoardlist() {
+    boardlistFileService.getBoardlist().addListCard(cardFileService.getCard());
+  }
+
+  public void getBoardAndBoardlist() {
+    board = boardService.getAllBoards().get(Integer.parseInt(boardPosition));
+    Boardlist boardlist = board.getBoardlist().get(Integer.parseInt(listPosition));
+  }
+
+  public String inputCardName() throws IOException {
+    System.out.println("Please input the name of the Card");
+    String input = getInput();
+
+    return input;
+  }
+
+  public void parseListAndBoardPosition(String listPosition) {
+
+    char ch[] = listPosition.toCharArray();
+    this.boardPosition = String.valueOf(ch[0]);
+    this.listPosition = String.valueOf(ch[1]);
+  }
+
+  public void assignBoardlistToBoard() {
+    boardService.getAllBoards().get(board_pos).addBoardlist(boardlistFileService.getBoardlist());
+  }
+
+  public void createBoardlist(String boardlistname) {
+    boardlistFileService.create(boardlistname);
+  }
+
   public void createBoard(String boardname) {
     boardService.create(boardname);
 
-    //   create(new Board(getInput()));
     System.out.println("Board was created  " + boardService.getBoard().toString());
 
-    // allBoards.add(boardService.getBoard());
-    boardService.addAllBoards();
-    // update();
+
   }
 
   public BoardService getBoardService() {
@@ -242,6 +258,7 @@ public class BusinessLogic {
 
     return this.input = keyboard.readLine();
   }
+
   public void serializeObjeckt(Object object, File file) throws IOException {
 
     FileOutputStream fo = new FileOutputStream(file);

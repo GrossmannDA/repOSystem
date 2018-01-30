@@ -8,10 +8,12 @@ public class BoardlistFileService implements boardlistDAO {
   Boardlist boardlist;
 
   public Boardlist getBoardlist() {
+
     return boardlist;
   }
 
   public void create(String boardlistname) {
+
     boardlist = new Boardlist(boardlistname);
   }
 

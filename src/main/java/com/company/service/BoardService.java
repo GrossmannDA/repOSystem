@@ -28,13 +28,11 @@ public class BoardService implements boardDAO {
     this.allBoards = allBoards;
   }
 
-  public void addAllBoards() {
-    allBoards.add(board);
-  }
 
   public void create(String boardname) {
 
     board = new Board(boardname);
+    allBoards.add(board);
   }
 
 
