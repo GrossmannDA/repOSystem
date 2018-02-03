@@ -1,7 +1,6 @@
 package com.company.presentation.controller;
 
 import com.company.presentation.model.Board;
-import com.company.presentation.model.Boardlist;
 import java.io.File;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -38,10 +37,10 @@ public class Check {
     return isAvalible;
   }
 
-  public boolean isListAvalable(List<Boardlist> boardlists) {
+  public boolean isListAvalableInTheSpecifikBoard(Board board) {
     boolean isListAvalible = false;
 
-    if (!boardlists.isEmpty()) {
+    if (!board.getBoardlist().isEmpty()) {
       isListAvalible = true;
     }
 
@@ -57,4 +56,6 @@ public class Check {
     }
     return fileIsEmpty;
   }
+
+
 }

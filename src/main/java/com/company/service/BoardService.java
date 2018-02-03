@@ -2,14 +2,18 @@ package com.company.service;
 
 import com.company.data.boardDAO;
 import com.company.presentation.model.Board;
+import com.company.presentation.model.Screen;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardService implements boardDAO {
 
-  private List<Board> allBoards = new ArrayList<>();
-
+  private Screen screen;
   private Board board;
+
+  public BoardService() {
+    screen = new Screen();
+  }
 
   public Board getBoard() {
     return board;
@@ -20,19 +24,10 @@ public class BoardService implements boardDAO {
   }
 
 
-  public List<Board> getAllBoards() {
-    return allBoards;
-  }
-
-  public void setAllBoards(List<Board> allBoards) {
-    this.allBoards = allBoards;
-  }
-
-
   public void create(String boardname) {
 
     board = new Board(boardname);
-    allBoards.add(board);
+    screen.getAllBoards().add(board);
   }
 
 
@@ -43,5 +38,12 @@ public class BoardService implements boardDAO {
 
   public void delete(Board board) {
 
+  }
+
+  public void setScreen(Screen screen) {
+    this.screen = screen;
+  }
+  public Screen getScreen() {
+    return screen;
   }
 }

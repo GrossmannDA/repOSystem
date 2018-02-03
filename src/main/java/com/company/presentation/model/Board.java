@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Board extends Model {
 
-  private Long id;
   private String boardName;
+  private int listPosition;
 
   private List<Boardlist> boardlist = new ArrayList<>();
 
@@ -44,5 +44,13 @@ public class Board extends Model {
 
   public String getBoardName() {
     return boardName;
+  }
+
+  public int getListPosition() {
+    return listPosition;
+  }
+
+  public void setListPosition(int listPosition) {
+    this.listPosition = listPosition;
   }
 }

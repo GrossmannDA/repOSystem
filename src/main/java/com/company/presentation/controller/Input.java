@@ -14,4 +14,16 @@ public class Input {
 
     return this.input = keyboard.readLine();
   }
+
+  public String queryBoardName() throws IOException {
+    System.out.println("Please input the name of the board");
+    return getInput();
+  }
+
+  public String queryNameOfTheList() throws IOException {
+    System.out.println("Please input the name of the List");
+
+    return getInput();
+  }
+
 }
