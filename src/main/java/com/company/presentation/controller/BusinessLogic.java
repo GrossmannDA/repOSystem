@@ -9,6 +9,8 @@ import com.company.presentation.view.Menupoints;
 import com.company.service.BoardService;
 import com.company.service.BoardlistFileService;
 import com.company.service.CardFileService;
+import com.google.common.annotations.VisibleForTesting;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,12 +43,12 @@ public class BusinessLogic {
   private String klammer_zu = "]";
   private String minus = "-";
 
-  public BusinessLogic() throws IOException, ClassNotFoundException {
+  public BusinessLogic(BoardService boardService) throws IOException, ClassNotFoundException {
     //  file = new File("SerTest.bin");
     menu = new Menu();
     check = new Check();
     allBoards = new ArrayList();
-    boardService = new BoardService();
+    this.boardService = boardService;
     boardlistFileService = new BoardlistFileService();
     cardFileService = new CardFileService();
   }
