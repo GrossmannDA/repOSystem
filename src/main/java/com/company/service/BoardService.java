@@ -3,8 +3,6 @@ package com.company.service;
 import com.company.data.boardDAO;
 import com.company.presentation.model.Board;
 import com.company.presentation.model.Screen;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BoardService implements boardDAO {
 
@@ -40,10 +38,11 @@ public class BoardService implements boardDAO {
 
   }
 
-  public void setScreen(Screen screen) {
-    this.screen = screen;
-  }
   public Screen getScreen() {
     return screen;
+  }
+
+  public void setScreen(Screen screen) {
+    this.screen = screen;
   }
 }

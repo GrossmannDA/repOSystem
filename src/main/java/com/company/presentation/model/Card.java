@@ -1,7 +1,5 @@
 package com.company.presentation.model;
 
-import java.io.Serializable;
-
 public class Card extends Model {
 
   private String cardName;

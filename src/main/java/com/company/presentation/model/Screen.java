@@ -3,10 +3,8 @@ package com.company.presentation.model;
 import java.util.ArrayList;
 
 /**
- * Create: 03.02.2018
- * The class Screen contains all Boards.
- * It knows about each boardposition within the Screen.
- * Screen can contain 0..n Boards
+ * Create: 03.02.2018 The class Screen contains all Boards. It knows about each boardposition within
+ * the Screen. Screen can contain 0..n Boards
  */
 
 public class Screen {

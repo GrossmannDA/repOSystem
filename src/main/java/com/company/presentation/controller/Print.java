@@ -25,7 +25,6 @@ public class Print {
     this.check = new Check();
   }
 
-
   public void cardPrint(Boardlist boardlist) {
     if (boardlist.getListCard().size() > 0) {
 
@@ -41,31 +40,37 @@ public class Print {
 
   public void queryCardAssignToBoardlistPrint(Board board, Boardlist boardlist) {
     System.out.println(
-        "Input Boardnumber " + boardService.getScreen().getAllBoards().indexOf(board) + " ListNumber " + board
+        "Input Boardnumber " + boardService.getScreen().getAllBoards().indexOf(board)
+            + " ListNumber " + board
             .getBoardlist().indexOf(boardlist) + " to choose " + boardlist.toString() + " : "
-            + boardService.getScreen().getAllBoards().indexOf(board) + board.getBoardlist().indexOf(boardlist));
+            + boardService.getScreen().getAllBoards().indexOf(board) + board.getBoardlist()
+            .indexOf(boardlist));
   }
 
   public void listAssignToBoardPrint() {
     for (Board board_1 : boardService.getScreen().getAllBoards()) {
 
       System.out.println(
-          "Choose " + boardService.getScreen().getAllBoards().indexOf(board_1) + " " + board_1.toString());
+          "Choose " + boardService.getScreen().getAllBoards().indexOf(board_1) + " " + board_1
+              .toString());
 
     }
   }
 
-  public void assignBoardlistToBoardPrint() {
+  public void assignBoardlistToBoardPrint(int boardPosition) {
     System.out.println(
-        "The List was assingt to Board: " + boardService.getScreen().getAllBoards().get(board_pos)
+        "The List was assingt to Board: " + boardService.getScreen().getAllBoards()
+            .get(boardPosition)
             .toString() + " " + boardlistFileService.getBoardlist().toString());
   }
 
   public void cardWasAddedToPrint() {
-
+    Board board = boardService.getScreen().getAllBoards()
+        .get(boardService.getScreen().getBoardPosition());
+    int boardlistPosition = board.getListPosition();
+    Boardlist boardlist = board.getBoardlist().get(boardlistPosition);
     System.out.println("Card " + cardFileService.getCard().toString() + " was added to "
-        + boardlistFileService
-        .getBoardlist().toString());
+        + boardlist.toString());
   }
 
 
@@ -76,18 +81,18 @@ public class Print {
     for (Board board : boardService.getScreen().getAllBoards()) {
       boardPrint(board);
 
-        if (check.isListAvalableInTheSpecifikBoard(board)) {
+      if (check.isListAvalableInTheSpecifikBoard(board)) {
 
-          for (Boardlist boardlist : board.getBoardlist()) {
+        for (Boardlist boardlist : board.getBoardlist()) {
 
-            queryCardAssignToBoardlistPrint(board, boardlist);
+          queryCardAssignToBoardlistPrint(board, boardlist);
 
-            cardPrint(boardlist);
-          }
-
-        } else {
-          System.out.println("No List exists. Please create the List befor Card");
+          cardPrint(boardlist);
         }
+
+      } else {
+        System.out.println("No List exists. Please create the List befor Card");
+      }
     }
   }
 }

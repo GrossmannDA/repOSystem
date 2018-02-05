@@ -12,6 +12,6 @@ public class CardFileService implements cardDAO {
   }
 
   public void createCard(String cardName) {
-     card = new Card(cardName);
+    card = new Card(cardName);
   }
 }
