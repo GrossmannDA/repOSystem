@@ -10,7 +10,7 @@ public class CreateCardController {
     /**
      * @return
      */
-    public String createCard(String cardName, String boardlistName) {
+    public Card createCard(String cardName, String boardlistName) {
         Card card = new Card(cardName);
         // todo: screen.getBoardlistByName(boaardlistName).addCard(card);
     }
