@@ -1,4 +1,4 @@
-package com.company.presentation.model;
+package com.company.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,6 @@ public class Boardlist extends Model {
   private String boardlistName;
 
   private List<Card> listCard = new ArrayList<>();
-
 
   public Boardlist(String boardlistName) {
     this.boardlistName = boardlistName;
