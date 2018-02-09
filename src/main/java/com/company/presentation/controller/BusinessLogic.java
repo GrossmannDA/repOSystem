@@ -1,5 +1,7 @@
 package com.company.presentation.controller;
 
+import static org.openjdk.tools.doclint.Entity.minus;
+
 import com.company.Util;
 import com.company.presentation.model.Board;
 import com.company.presentation.model.Boardlist;
@@ -29,9 +31,9 @@ public class BusinessLogic {
   private File file;
   private Check check;
 
-  private String klammer_auf = "[";
-  private String klammer_zu = "]";
-  private String minus = "-";
+  private static String KLAMMER_AUF = "[";
+  private static String KLAMMER_ZU = "]";
+  private String MINUS = "-";
 
   private String userInputString;
   private Print print;
@@ -93,7 +95,7 @@ public class BusinessLogic {
   }
 
   public void validateUserInput() throws IOException {
-    String str_menu = klammer_auf + "1" + minus + "3" + klammer_zu;
+    String str_menu = KLAMMER_AUF + "1" + MINUS + "3" + KLAMMER_ZU;
 
     if (!check.isInputStringValid(userInputString, str_menu)) {
 
@@ -129,7 +131,7 @@ public class BusinessLogic {
     System.out.println("To which Board do you want add this List?: ");
 
     String size = String.valueOf(boardService.getScreen().getAllBoards().size() - 1);
-    String regex_size = klammer_auf + "0" + minus + size + klammer_zu;
+    String regex_size = KLAMMER_AUF + "0" + MINUS + size + KLAMMER_ZU;
 
     print.listAssignToBoardPrint();
     String userInputboardPosition = input.getInput();

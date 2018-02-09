@@ -1,10 +1,10 @@
 package com.company.service;
 
-import com.company.data.boardDAO;
+import com.company.data.BoardDAO;
 import com.company.presentation.model.Board;
 import com.company.presentation.model.Screen;
 
-public class BoardService implements boardDAO {
+public class BoardService implements BoardDAO {
 
   private Screen screen;
   private Board board;

@@ -1,9 +1,9 @@
 package com.company.service;
 
-import com.company.data.cardDAO;
+import com.company.data.CardDAO;
 import com.company.presentation.model.Card;
 
-public class CardFileService implements cardDAO {
+public class CardFileService implements CardDAO {
 
   Card card;
 

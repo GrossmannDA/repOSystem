@@ -19,16 +19,13 @@ public class Screen {
   public int getBoardPosition() {
     return boardPosition;
   }
-
   public void setBoardPosition(int boardPosition) {
     this.boardPosition = boardPosition;
   }
 
-
   public ArrayList<Board> getAllBoards() {
     return allBoards;
   }
-
   public void setAllBoards(ArrayList<Board> allBoards) {
     this.allBoards = allBoards;
   }
