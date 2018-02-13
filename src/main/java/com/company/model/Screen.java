@@ -1,4 +1,4 @@
-package com.company.presentation.model;
+package com.company.model;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,7 @@ public class Screen {
   public int getBoardPosition() {
     return boardPosition;
   }
+
   public void setBoardPosition(int boardPosition) {
     this.boardPosition = boardPosition;
   }
@@ -26,6 +27,7 @@ public class Screen {
   public ArrayList<Board> getAllBoards() {
     return allBoards;
   }
+
   public void setAllBoards(ArrayList<Board> allBoards) {
     this.allBoards = allBoards;
   }

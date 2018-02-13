@@ -1,48 +1,31 @@
 package com.company.service;
 
-import com.company.data.BoardDAO;
-import com.company.presentation.model.Board;
-import com.company.presentation.model.Screen;
+import com.company.model.Board;
+import com.company.model.Boardlist;
 
-public class BoardService implements BoardDAO {
+public class BoardService {
 
-  private Screen screen;
-  private Board board;
+  Board board;
 
-  public BoardService() {
-    screen = new Screen();
-  }
+  public Board createNewBoard(String boardName) {
 
-  public Board getBoard() {
+    board = new Board(boardName);
+
     return board;
-  }
-
-  public void setBoard(Board board) {
-    this.board = board;
-  }
-
-
-  public void create(String boardname) {
-
-    board = new Board(boardname);
-    screen.getAllBoards().add(board);
-  }
-
-
-  public void update(Board board) {
 
   }
 
+  public void addBoardListToBoard(Board board, Boardlist boardlist) {
 
-  public void delete(Board board) {
-
+    board.addBoardlist(boardlist);
   }
 
-  public Screen getScreen() {
-    return screen;
+  public void updateBoardName(Board board, String newBoardName) {
+    board.setBoardName(newBoardName);
   }
 
-  public void setScreen(Screen screen) {
-    this.screen = screen;
+  public void removeBoardListFromBoard(Board board, Boardlist boardlist) {
+
+    board.getBoardlist().remove(boardlist);
   }
 }
