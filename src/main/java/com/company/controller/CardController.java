@@ -1,13 +1,14 @@
 package com.company.controller;
 
 import com.company.model.Card;
-import com.company.service.CardService;
+import com.company.controller.service.CardService;
 
 public class CardController {
-CardService cardService = new CardService();
 
-  public Card createCardUI(String cardDescriptionUI) {
+  CardService cardService = new CardService();
 
-    return cardService.createNewCard(cardDescriptionUI);
+  public CardView createCardUI(String cardDescriptionUI) {
+    Card newCard = cardService.createNewCard(cardDescriptionUI);
+
   }
 }

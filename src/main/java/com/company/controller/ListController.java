@@ -1,7 +1,7 @@
 package com.company.controller;
 
 import com.company.model.Boardlist;
-import com.company.service.BoardListService;
+import com.company.controller.service.BoardListService;
 
 public class ListController {
 

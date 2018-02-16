@@ -2,8 +2,8 @@ package com.company.view;
 
 import com.company.model.Board;
 import com.company.model.Screen;
-import com.company.service.BoardService;
-import com.company.service.ScreenService;
+import com.company.controller.service.BoardService;
+import com.company.controller.service.ScreenService;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;

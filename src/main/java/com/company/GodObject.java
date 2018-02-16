@@ -1,14 +1,18 @@
-package com.company.view;
+package com.company;
 
 import com.company.controller.BoardController;
 import com.company.controller.ListController;
 import com.company.model.Board;
 import com.company.model.Boardlist;
+import com.company.view.BoardView;
+import com.company.view.CardView;
+import com.company.view.ListView;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class GeneralView {
+public class GodObject {
 
   String input;
   Board board;
@@ -20,7 +24,7 @@ public class GeneralView {
   ListView listView;
   CardView cardView;
 
-  public GeneralView() throws IOException {
+  public GodObject() throws IOException {
     menuPoints();
 
     while (!input.equals("999")) {

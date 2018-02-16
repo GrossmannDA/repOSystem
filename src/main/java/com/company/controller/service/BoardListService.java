@@ -1,4 +1,4 @@
-package com.company.service;
+package com.company.controller.service;
 
 import com.company.model.Boardlist;
 import com.company.model.Card;

@@ -1,7 +1,7 @@
 package com.company.view;
 
 import com.company.model.Boardlist;
-import com.company.service.BoardListService;
+import com.company.controller.service.BoardListService;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;

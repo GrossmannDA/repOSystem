@@ -1,6 +1,5 @@
 package com.company.view;
 
-import com.company.controller.BoardController;
 import com.company.model.Board;
 import com.company.model.Boardlist;
 

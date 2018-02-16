@@ -1,7 +1,7 @@
 package com.company.view;
 
 import com.company.model.Card;
-import com.company.service.CardService;
+import com.company.controller.service.CardService;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;

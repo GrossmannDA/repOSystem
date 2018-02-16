@@ -1,4 +1,4 @@
-package com.company.service;
+package com.company.controller.service;
 
 import com.company.model.Board;
 import com.company.model.Screen;
