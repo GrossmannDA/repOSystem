@@ -1,13 +1,18 @@
 package com.company.controller;
 
-import com.company.model.Boardlist;
-import com.company.service.BoardListService;
+import com.company.service.ListService;
+import com.company.view.BoardListView;
+import java.io.IOException;
+
 
 public class ListController {
+ListService listService = new ListService();
+BoardListView listView;
+  public BoardListView createList(String listName, int listDestination)
+      throws IOException, ClassNotFoundException {
 
-  BoardListService boardListService = new BoardListService();
+    listView=listService.createList(listName,listDestination);
 
-  public Boardlist createListAndSetListnameUI(String userInputListName) {
-    return boardListService.createNewBoardList(userInputListName);
+    return listView;
   }
 }

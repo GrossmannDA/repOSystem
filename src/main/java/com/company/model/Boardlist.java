@@ -8,10 +8,17 @@ public class Boardlist extends Model {
   private String boardlistName;
 
   private List<Card> listCard = new ArrayList<>();
-
+  private int listId;
 
   public Boardlist(String boardlistName) {
     this.boardlistName = boardlistName;
+  }
+
+  public int getListId() {
+    return listId;
+  }
+  public void setListId(int listId) {
+    this.listId = listId;
   }
 
   public List<Card> getListCard() {

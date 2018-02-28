@@ -1,5 +1,6 @@
 package com.company.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,28 +8,36 @@ import java.util.ArrayList;
  * the Screen. Screen can contain 0..n Boards
  */
 
-public class Screen {
+public class Screen implements Serializable{
 
-  private int boardPosition;
+  private int boardId;
   private ArrayList<Board> allBoards;
+  private static Screen instance;
 
-  public Screen() {
+  private Screen() {
     allBoards = new ArrayList<>();
   }
 
-  public int getBoardPosition() {
-    return boardPosition;
+  public static Screen getInstance(){
+    if(instance == null){
+      instance = new Screen();
+    }
+    return instance;
+
   }
 
-  public void setBoardPosition(int boardPosition) {
-    this.boardPosition = boardPosition;
+  public int getBoardById() {
+    return boardId;
   }
+
 
   public ArrayList<Board> getAllBoards() {
+
     return allBoards;
   }
 
   public void setAllBoards(ArrayList<Board> allBoards) {
+
     this.allBoards = allBoards;
   }
 }

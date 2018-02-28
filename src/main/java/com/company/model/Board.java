@@ -9,6 +9,16 @@ public class Board extends Model {
 
   private int listPosition;
   private List<Boardlist> boardlist = new ArrayList<>();
+  private int boardId;
+
+
+  public int getBoardId() {
+    return boardId;
+  }
+
+  public void setBoardId(int boardId) {
+    this.boardId = boardId;
+  }
 
   public Board(String boardName) {
     this.boardName = boardName;

@@ -1,18 +1,17 @@
 package com.company.controller;
 
-import com.company.model.Board;
 import com.company.service.BoardService;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.company.view.BoardView;
 
 public class BoardController {
 
   BoardService boardService = new BoardService();
+  BoardView boardView;
 
+  public BoardView createBoard(String boardName) {
 
-  public Board createBoardAndSetBoardNameUI(String userInputBoardName) {
-   return boardService.createNewBoard(userInputBoardName);
+    boardView = boardService.createBoard(boardName);
+    return boardView;
 
   }
 }
