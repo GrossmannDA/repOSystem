@@ -1,17 +1,21 @@
 package com.company.service;
 
 import com.company.model.Boardlist;
-import com.company.model.Screen;
+import com.company.persistance.PersistanceState;
 import com.company.view.BoardListView;
 import com.company.view.ScreenView;
 import java.io.IOException;
 
 
 public class ListService {
-Screen screen = Screen.getInstance();
+PersistanceState screen = PersistanceState.getInstance();
 ScreenView screenView = new ScreenView();
 BoardListView listView;
 Boardlist boardlist;
+
+  public ListService() throws IOException, ClassNotFoundException {
+  }
+
   public BoardListView createList(String listName, int targetListDestination)
       throws IOException, ClassNotFoundException {
 

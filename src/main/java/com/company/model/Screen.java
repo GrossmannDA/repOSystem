@@ -1,5 +1,10 @@
 package com.company.model;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,19 +17,12 @@ public class Screen implements Serializable{
 
   private int boardId;
   private ArrayList<Board> allBoards;
-  private static Screen instance;
 
-  private Screen() {
+
+  public Screen() {
     allBoards = new ArrayList<>();
   }
 
-  public static Screen getInstance(){
-    if(instance == null){
-      instance = new Screen();
-    }
-    return instance;
-
-  }
 
   public int getBoardById() {
     return boardId;
@@ -40,4 +38,6 @@ public class Screen implements Serializable{
 
     this.allBoards = allBoards;
   }
+
+
 }

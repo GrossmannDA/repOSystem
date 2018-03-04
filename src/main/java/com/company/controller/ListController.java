@@ -8,6 +8,10 @@ import java.io.IOException;
 public class ListController {
 ListService listService = new ListService();
 BoardListView listView;
+
+  public ListController() throws IOException, ClassNotFoundException {
+  }
+
   public BoardListView createList(String listName, int listDestination)
       throws IOException, ClassNotFoundException {
 

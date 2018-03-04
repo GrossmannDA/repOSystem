@@ -3,26 +3,30 @@ package com.company.view;
 import com.company.model.Board;
 import com.company.model.Boardlist;
 import com.company.model.Screen;
-import com.company.service.SaveScreenService;
+import com.company.persistance.PersistanceState;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ScreenView {
 
-  SaveScreenService saveScreenService = new SaveScreenService();
+// soll keine Services enthalten
+
+
   ArrayList<String> boardsName = new ArrayList<>();
   ArrayList<String> boardListName = new ArrayList<>();
   ArrayList<Integer> boardLocation = new ArrayList<>();
   ArrayList<Integer> boardListLocation = new ArrayList<>();
   int count = 0;
-  Screen screen;
+  PersistanceState screenState = PersistanceState.getInstance() ;
 
+  public ScreenView() throws IOException, ClassNotFoundException {
 
+    screenState.loadState();
+  }
 
   public ArrayList<String> getScreenBoardsName() throws IOException, ClassNotFoundException {
 
-    Screen screen = saveScreenService.readFile();
-    for (Board board : screen.getAllBoards()) {
+    for (Board board : screenState.getScreen().getAllBoards()) {
 
       boardsName.add(board.getBoardName());
     }
@@ -31,8 +35,8 @@ public class ScreenView {
 
   public ArrayList<Integer> getScreenBoardsLocation() throws IOException, ClassNotFoundException {
 
-    Screen screen = saveScreenService.readFile();
-    for (Board board : screen.getAllBoards()) {
+    screenState.getScreen().getAllBoards();
+    for (Board board : screenState.getScreen().getAllBoards()) {
 
       boardLocation.add(board.getBoardId());
     }
@@ -41,8 +45,7 @@ public class ScreenView {
 
   public ArrayList<String> getBoardListName() throws IOException, ClassNotFoundException {
 
-    Screen screen = saveScreenService.readFile();
-    for (Board board : screen.getAllBoards()) {
+    for (Board board : screenState.getScreen().getAllBoards()) {
 
       for (Boardlist boardlist : board.getBoardlist()) {
         boardListName.add(boardlist.getBoardlistName());
@@ -53,8 +56,8 @@ public class ScreenView {
 
   public ArrayList<Integer> getBoardListLocation() throws IOException, ClassNotFoundException {
 
-    screen = saveScreenService.readFile();
-    for (Board board : screen.getAllBoards()) {
+
+    for (Board board : screenState.getScreen().getAllBoards()) {
 
       for (Boardlist boardlist : board.getBoardlist()) {
         boardListLocation.add(count);
@@ -65,7 +68,7 @@ public class ScreenView {
   }
 
   public Screen getScreen() throws IOException, ClassNotFoundException {
-    return saveScreenService.readFile();
+    return screenState.getScreen();
   }
 
 

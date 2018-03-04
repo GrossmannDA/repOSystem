@@ -1,22 +1,21 @@
 package com.company.service;
 
 import com.company.model.Board;
-import com.company.model.Screen;
-import com.company.view.BoardView;
+import com.company.persistance.PersistanceState;
 
+// kann auch model zurückgeben. Normalerweise wird immer das Model zurückgegeben.
 public class BoardService {
-  Screen screen = Screen.getInstance();
-  Board board;
-  BoardView boardView;
+// hier link to PersistanceState
+PersistanceState persistanceState;
+// keine Status sollen hier gespeichert werden.
 
-  public BoardView createBoard(String boardName) {
 
-    board = new Board(boardName);
-    screen.getAllBoards().add(board);
+  public Board createBoard(String boardName) {
 
-    boardView = new BoardView(board);
+    Board board = new Board(boardName);
+    persistanceState.getScreen().getAllBoards().add(board);
 
-    return boardView;
+    return board;
 
   }
 }

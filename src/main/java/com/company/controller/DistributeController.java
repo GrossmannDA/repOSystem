@@ -1,71 +1,63 @@
 package com.company.controller;
 
-import com.company.model.Screen;
-import com.company.service.SaveScreenService;
-import com.company.view.BoardListView;
-import com.company.view.BoardView;
+import com.company.controller.state.ActualApplicationStateService;
+import com.company.controller.state.RequestState;
+import com.company.controller.state.ResponseState;
 import com.company.view.CardView;
-import com.company.view.ScreenView;
+import com.company.view.CreateCardView;
+import com.company.view.MenuView;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Optional;
 
-
+// singleton. dient nur zur Weiterleitung
 public class DistributeController {
 
-  CardController cardContrtoller;
-  CardView cardView;
-  SaveScreenService saveScreenService;
+  // dieser service gehört nur zu diesem Controller
+  ActualApplicationStateService actualApplicationStateService = new ActualApplicationStateService();
+  BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-  BoardView boardView;
-  ScreenView screenView;
+  public DistributeController() throws IOException {
+    // first initialisation > the main menu is shown
+    String actualState = actualApplicationStateService.getUserState();
+    if (actualState == null) {
+      actualApplicationStateService.setUserState(ResponseState.START_APP_STATE.getState());
+      MenuView menuView = new MenuView();
+      menuView.startMenu();
 
-  BoardListView listView;
-  BoardController boardController;
-  ListController listController;
-  public DistributeController(String menuPoint) throws IOException {
-
-    if (menuPoint.equals("1")) {
-      cardContrtoller = new CardController();
     }
-    if (menuPoint.equals("2")) {
-      boardController = new BoardController();
-      System.out.println("Please give the Boardname: ");
-    }
+    requestMapping(bufferedReader.readLine());
+  }
 
-    if (menuPoint.equals("3")) {
-      listController = new ListController();
-    }
-    if (menuPoint.equals("999")) {
-      saveScreenService = new SaveScreenService();
+  public void requestMapping(String request) {
+    CreateCardView createCardView = new CreateCardView();
 
-      saveScreenService.saveScreen();
+    if (request.equals("1")) {
+      actualApplicationStateService
+          .setUserState(RequestState.REQUEST_CREATE_CARD_STATE.getRequestState());
+      CardController cardController = new CardController();
 
-      System.out.println("The screen was saved!");
+      Optional<CardView> newCard = cardController.createNewCard("Card 1", 0, 0);
+      if (newCard.isPresent()) {
+        actualApplicationStateService
+            .setUserState(ResponseState.CARD_CREATED_SUCCSES_STATE.getState());
+      }
+
+      if (actualApplicationStateService.getUserState()
+          .equals(ResponseState.CARD_CREATED_SUCCSES_STATE.getState())) {
+        createCardView.getCardCreatedSuccsesfullyNotification();
+      }
+      if (actualApplicationStateService.getUserState()
+          .equals(ResponseState.CARD_CREATED_FALLURE_STATE.getState())) {
+        createCardView.getCardCreatedFallureNotification();
+      }
+
     }
 
   }
 
-  public BoardView getBoardView() {
-    return boardView;
-  }
+  public void respoceMapping() {
 
-  public CardView createCard(String cardName, int boardLocation, int listLocation) {
-
-    cardView = cardContrtoller.createNewCard(cardName, boardLocation, listLocation);
-
-    return cardView;
-  }
-
-  public BoardView createBoard(String boardName) {
-
-    boardView = boardController.createBoard(boardName);
-
-    return boardView;
-  }
-
-  public BoardListView createList(String listName, int listDestination)
-      throws IOException, ClassNotFoundException {
-    listView = listController.createList(listName, listDestination);
-
-    return  listView;
   }
 }
