@@ -1,6 +1,6 @@
-package com.company.view;
+package com.company.view.print;
 
-public class CreateCardView {
+public class CreateCardPrint {
 
 
   public void getCardCreatedSuccsesfullyNotification(){

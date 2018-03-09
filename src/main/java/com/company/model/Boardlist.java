@@ -12,7 +12,11 @@ public class Boardlist extends Model {
 
   public Boardlist(String boardlistName) {
     this.boardlistName = boardlistName;
+
+
   }
+
+
 
   public int getListId() {
     return listId;

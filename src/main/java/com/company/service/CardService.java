@@ -7,16 +7,15 @@ import com.company.view.CardView;
 public class CardService {
 
   Card card;
-  CardView cardView;
+
   PersistanceState persistanceState;
 
-  public CardView createCard(String cardName, int boardLocation, int listLocation) {
+  public Card createCard(String cardName, int boardLocation, int listLocation) {
 
     card = new Card(cardName);
-    cardView = new CardView(card);
 
     persistanceState.getScreen().getAllBoards().get(boardLocation).getBoardlist().get(listLocation).addListCard(card);
 
-    return cardView;
+    return card;
   }
 }

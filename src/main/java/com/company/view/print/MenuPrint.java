@@ -1,8 +1,8 @@
-package com.company.view;
+package com.company.view.print;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
 
-public class MenuView {
+public class MenuPrint {
 
 
 

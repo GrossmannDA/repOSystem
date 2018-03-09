@@ -12,14 +12,8 @@ public class CardController {
   ActualApplicationStateService actualApplicationStateService = new ActualApplicationStateService();
 
   public Optional<CardView>  createNewCard(String cardName, int boardLocation, int listLocation) {
-    cardView = cardService.createCard(cardName, boardLocation, listLocation);
-    /*if(!cardView.equals(null)) {
-      actualApplicationStateService
-          .setPersistanceState(ResponseState.CARD_CREATED_SUCCSES_STATE.getState());
-    }else
-    {
-      actualApplicationStateService.setPersistanceState(ResponseState.CARD_CREATED_FALLURE_STATE.getState());
-   } */
+    cardView = new CardView(cardService.createCard(cardName, boardLocation, listLocation));
+
     return Optional.ofNullable(cardView);
   }
 }

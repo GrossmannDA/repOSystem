@@ -9,24 +9,18 @@ import java.io.IOException;
 
 public class ListService {
 PersistanceState screen = PersistanceState.getInstance();
-ScreenView screenView = new ScreenView();
+ScreenView screenView = new ScreenView(screen.getScreen());
 BoardListView listView;
 Boardlist boardlist;
 
   public ListService() throws IOException, ClassNotFoundException {
   }
 
-  public BoardListView createList(String listName, int targetListDestination)
-      throws IOException, ClassNotFoundException {
+  public Boardlist createBoardList(String boardListName, int location){
 
-    boardlist = new Boardlist(listName);
-    if(screenView.getScreenBoardsName().size() > 0){
-      screenView.getScreen().getAllBoards().get(targetListDestination).addBoardlist(boardlist);
-    }
+    boardlist =  new Boardlist(boardListName);
+    screen.getScreen().getAllBoards().get(location).addBoardlist(boardlist);
 
-
-    listView = new BoardListView(boardlist);
-
-    return listView;
+    return boardlist;
   }
 }
