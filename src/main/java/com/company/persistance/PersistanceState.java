@@ -1,10 +1,14 @@
 package com.company.persistance;
 
 import com.company.model.Screen;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
 public class PersistanceState {
+
+  private final static Logger LOGGER = LoggerFactory.getLogger(PersistanceState.class);
 
   private Screen screen;
   private static final PersistanceState INSTANCE = new PersistanceState();
@@ -12,7 +16,9 @@ public class PersistanceState {
   private PersistanceState() {
     try {
       this.screen = loadState();
+      LOGGER.debug("State was successfully loaded");
     } catch (Exception e) {
+      LOGGER.warn("Exception when loaded state", e);
       // LOG.info(..)
       this.screen = new Screen();
     }

@@ -11,7 +11,6 @@ public class SaveOrLoadScreenService {
   public SaveOrLoadScreenService() {
 
     if(screenLoad == null){
-
       screenLoad = PersistanceState.getInstance().getScreen();
      
     }
