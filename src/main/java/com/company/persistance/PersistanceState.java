@@ -1,63 +1,42 @@
 package com.company.persistance;
 
 import com.company.model.Screen;
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import java.io.*;
 
 public class PersistanceState {
-// singelton. Nur service darf kommunizieren.
 
-  // when final > cannot assing nothing else. Does it make sence?
-  private static Screen screen;
-
-  private static PersistanceState instance;
+  private Screen screen;
+  private static final PersistanceState INSTANCE = new PersistanceState();
 
   private PersistanceState() {
-
-  }
-
-  public static PersistanceState getInstance() throws IOException, ClassNotFoundException {
-
-    if (instance == null) {
-      instance = new PersistanceState();
-      if (screen == null) {
-        loadState();
-      }
-    }
-    return instance;
-  }
-
-  public static Screen loadState() throws IOException, ClassNotFoundException {
-
-    FileInputStream fileInputStream = new FileInputStream("objects.dat");
-    ObjectInputStream objectInputStream = null;
     try {
-      objectInputStream = new ObjectInputStream(fileInputStream);
-    } catch (EOFException e) {
-      e.printStackTrace();
-    }finally {
-     // objectInputStream.close();
+      this.screen = loadState();
+    } catch (Exception e) {
+      // LOG.info(..)
+      this.screen = new Screen();
     }
-      screen = (Screen) objectInputStream.readObject();
+  }
 
-    objectInputStream.close();
-    return screen;
+  public static PersistanceState getInstance() {
+    return INSTANCE;
+  }
+
+  private static Screen loadState() throws IOException, ClassNotFoundException {
+    FileInputStream fileInputStream = new FileInputStream("objects.dat");
+
+    try (ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+      return (Screen) objectInputStream.readObject();
+    }
   }
 
   public Screen getScreen() {
     return screen;
   }
 
-  public void persist() throws IOException, ClassNotFoundException {
-
-    ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-        new FileOutputStream("objects.dat"));
+  public void persist() throws IOException {
+    ObjectOutputStream objectOutputStream =
+        new ObjectOutputStream(new FileOutputStream("objects.dat"));
     objectOutputStream.writeObject(PersistanceState.getInstance().getScreen());
   }
-
 }
