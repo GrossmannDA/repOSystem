@@ -43,6 +43,7 @@ public class PersistanceState {
     }finally {
      // objectInputStream.close();
     }
+
       screen = (Screen) objectInputStream.readObject();
 
     objectInputStream.close();

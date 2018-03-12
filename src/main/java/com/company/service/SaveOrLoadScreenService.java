@@ -23,7 +23,7 @@ public class SaveOrLoadScreenService {
 
   public void save() throws IOException, ClassNotFoundException {
 
-    PersistanceState.getInstance().getScreen();
+    PersistanceState.getInstance().persist();
   }
 
 
