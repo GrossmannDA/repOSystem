@@ -8,10 +8,9 @@ public class SaveOrLoadScreenService {
 //hier wird der screenLoad geladen
   private Screen screenLoad;
 
-  public SaveOrLoadScreenService() throws IOException, ClassNotFoundException {
+  public SaveOrLoadScreenService() {
 
     if(screenLoad == null){
-
       screenLoad = PersistanceState.getInstance().getScreen();
      
     }
@@ -21,8 +20,7 @@ public class SaveOrLoadScreenService {
     return screenLoad;
   }
 
-  public void save() throws IOException, ClassNotFoundException {
-
+  public void save() throws IOException {
     PersistanceState.getInstance().persist();
   }
 

@@ -2,16 +2,17 @@ package com.company;
 
 
 import com.company.controller.DistributeController;
-import com.company.model.Screen;
-import com.company.view.ScreenView;
-import java.io.BufferedReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Main {
 
-  public static void main(String[] args) throws IOException, ClassNotFoundException {
+  private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
+  public static void main(String[] args) throws IOException, ClassNotFoundException {
+    LOGGER.info("My first log");
     DistributeController distributeController = new DistributeController();
   }
 }
