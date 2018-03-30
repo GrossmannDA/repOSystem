@@ -13,7 +13,6 @@ public class PersistanceState {
   private Screen screen;
   private static final PersistanceState INSTANCE = new PersistanceState();
 
-
   private PersistanceState() {
     try {
       this.screen = loadState();
