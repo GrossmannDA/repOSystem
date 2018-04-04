@@ -9,7 +9,7 @@ public class HomeController {
 
   MenuPrint menuPrint;
   ScreenView screenView;
-  SaveOrLoadScreenService saveOrLoadScreenService = new SaveOrLoadScreenService();
+  SaveOrLoadScreenService saveOrLoadScreenService;
 
   public HomeController() throws IOException, ClassNotFoundException {
   }
@@ -21,6 +21,7 @@ public class HomeController {
    * @throws ClassNotFoundException
    */
   public ScreenView getPersistScreenView() throws IOException, ClassNotFoundException {
+    saveOrLoadScreenService = new SaveOrLoadScreenService();
     screenView = new ScreenView(saveOrLoadScreenService.getPersistScreen());
     return screenView;
   }
