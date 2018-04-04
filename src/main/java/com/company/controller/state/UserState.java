@@ -8,7 +8,7 @@ public class UserState {
     return state;
   }
 
-  public void setState(String state) {
+  public void setState(String appsState) {
     this.state = state;
   }
 }
