@@ -5,13 +5,10 @@ import java.io.IOException;
 
 public class ScreenController {
 
-  //alle möglichen services
-  SaveOrLoadScreenService saveOrLoadScreenService = new SaveOrLoadScreenService();
+  // alle möglichen services
+  private SaveOrLoadScreenService saveOrLoadScreenService = new SaveOrLoadScreenService();
 
-  public ScreenController() throws IOException, ClassNotFoundException {
-  }
-
-  public void saveScreen() throws IOException, ClassNotFoundException {
+  public void saveScreen() throws IOException {
 
     saveOrLoadScreenService.save();
   }

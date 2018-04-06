@@ -8,7 +8,6 @@ public class Card extends Model {
   private String cardDescription;
   private ArrayList<String> comment = new ArrayList<>();
 
-
   public Card(String cardName) {
     this.cardName = cardName;
   }
@@ -35,16 +34,20 @@ public class Card extends Model {
 
   @Override
   public String toString() {
-    return "Card{" +
-        "cardName='" + cardName + '\'' +
-        ", cardDescription='" + cardDescription + '\'' +
-        ", comment='" + comment + '\'' +
-        '}';
+    return "Card{"
+        + "cardName='"
+        + cardName
+        + '\''
+        + ", cardDescription='"
+        + cardDescription
+        + '\''
+        + ", comment='"
+        + comment
+        + '\''
+        + '}';
   }
 
   public void addComment(String comment) {
     this.comment.add(comment);
   }
-
-
 }

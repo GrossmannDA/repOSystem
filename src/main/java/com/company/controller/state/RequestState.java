@@ -1,7 +1,6 @@
 package com.company.controller.state;
 
 public enum RequestState {
-
   REQUEST_CREATE_CARD_STATE("200");
 
   String requestState;

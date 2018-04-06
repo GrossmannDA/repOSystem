@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+  <appender class="ch.qos.logback.core.FileAppender" name="FILE">
     <file>testFile.log</file>
     <append>true</append>
     <!-- set immediateFlush to false for much higher logging throughput -->
@@ -14,6 +14,6 @@
   </appender>
 
   <root level="DEBUG">
-    <appender-ref ref="FILE" />
+    <appender-ref ref="FILE"/>
   </root>
 </configuration>

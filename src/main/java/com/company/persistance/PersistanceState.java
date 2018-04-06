@@ -1,18 +1,19 @@
 package com.company.persistance;
 
 import com.company.model.Screen;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-
 public class PersistanceState {
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(PersistanceState.class);
-
-  private Screen screen;
+  private static final Logger LOGGER = LoggerFactory.getLogger(PersistanceState.class);
   private static final PersistanceState INSTANCE = new PersistanceState();
-
+  private Screen screen;
 
   private PersistanceState() {
     try {

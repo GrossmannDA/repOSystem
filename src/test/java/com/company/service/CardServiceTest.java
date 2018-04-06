@@ -1,9 +1,6 @@
 package com.company.service;
 
 import com.company.model.Card;
-import com.company.model.Screen;
-import com.company.persistance.PersistanceState;
-import java.io.IOException;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,26 +8,23 @@ import org.junit.Test;
 public class CardServiceTest {
 
   @Test
-  public void createCardTest() throws IOException, ClassNotFoundException {
+  public void createCardTest() {
 
-    //given
+    // given
     String expectedCardName = "Card 1";
     int boardIntex = 0;
     int listIndex = 0;
-    
 
     BoardService boardService = new BoardService();
     boardService.createBoard("Board 1");
     ListService listService = new ListService();
     listService.createBoardList("List 1", 0);
 
-    //when
+    // when
     CardService cardService = new CardService();
-    Card card =cardService.createCard(expectedCardName, boardIntex,listIndex);
+    Card card = cardService.createCard(expectedCardName, boardIntex, listIndex);
 
-    //then
+    // then
     Assert.assertThat(card.getCardName(), Matchers.is(expectedCardName));
-
-
   }
 }

@@ -11,6 +11,9 @@ public class Board extends Model {
   private List<Boardlist> boardlist = new ArrayList<>();
   private int boardId;
 
+  public Board(String boardName) {
+    this.boardName = boardName;
+  }
 
   public int getBoardId() {
     return boardId;
@@ -18,10 +21,6 @@ public class Board extends Model {
 
   public void setBoardId(int boardId) {
     this.boardId = boardId;
-  }
-
-  public Board(String boardName) {
-    this.boardName = boardName;
   }
 
   public void addBoardlist(Boardlist board_list) {
@@ -35,10 +34,7 @@ public class Board extends Model {
 
   @Override
   public String toString() {
-    return "Board{" +
-        "boardName='" + boardName + '\'' +
-
-        '}';
+    return "Board{" + "boardName='" + boardName + '\'' + '}';
   }
 
   @Override

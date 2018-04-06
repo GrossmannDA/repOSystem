@@ -7,13 +7,14 @@ import java.util.Optional;
 
 public class CardController {
 
-  CardView cardView;
-  CardService cardService = new CardService();
-  ActualApplicationStateService actualApplicationStateService = new ActualApplicationStateService();
+  private CardView cardView;
+  private CardService cardService = new CardService();
+  private ActualApplicationStateService actualApplicationStateService =
+      new ActualApplicationStateService();
 
-  public Optional<CardView>  createNewCard(String cardName, int boardLocation, int listLocation) {
+  public Optional<CardView> createNewCard(String cardName, int boardLocation, int listLocation) {
     cardView = new CardView(cardService.createCard(cardName, boardLocation, listLocation));
 
-    return Optional.ofNullable(cardView);
+    return Optional.of(cardView);
   }
 }

@@ -1,12 +1,8 @@
 package com.company.view.print;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 public class MenuPrint {
 
-
-
-  public void startMenu(){
+  public void startMenu() {
 
     System.out.println("What do want to do?");
     System.out.println("1: Create Card");
@@ -14,5 +10,4 @@ public class MenuPrint {
     System.out.println("3: Create List");
     System.out.println("999: Save");
   }
-
 }

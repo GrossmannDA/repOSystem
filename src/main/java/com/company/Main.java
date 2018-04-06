@@ -1,17 +1,15 @@
 package com.company;
 
-
 import com.company.controller.DistributeController;
+import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-
 public class Main {
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-  public static void main(String[] args) throws IOException, ClassNotFoundException {
+  public static void main(String[] args) throws IOException {
     LOGGER.info("My first log");
     DistributeController distributeController = new DistributeController();
   }

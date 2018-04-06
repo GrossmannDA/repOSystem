@@ -20,18 +20,18 @@ import java.util.Optional;
 public class DistributeController {
 
   // dieser service gehört nur zu diesem Controller
-  private ActualApplicationStateService actualApplicationStateService = new ActualApplicationStateService();
+  private ActualApplicationStateService actualApplicationStateService =
+      new ActualApplicationStateService();
   private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
   private HomeController homeController = new HomeController();
 
-  public DistributeController() throws IOException, ClassNotFoundException {
+  public DistributeController() throws IOException{
     // first initialisation > the main menu is shown
     String actualState = actualApplicationStateService.getUserState();
     if (actualState == null) {
       actualApplicationStateService.setUserState(ResponseState.START_APP_STATE.getState());
       MenuPrint menuPrint = new MenuPrint();
       menuPrint.startMenu();
-
     }
 
     String userInput = "";
@@ -41,20 +41,20 @@ public class DistributeController {
     }
   }
 
-  private void requestMapping(String request) throws IOException, ClassNotFoundException {
+  private void requestMapping(String request) throws IOException {
     CreateCardPrint createCardPrint = new CreateCardPrint();
 
     if (request.equals("1")) {
-      actualApplicationStateService
-          .setUserState(RequestState.REQUEST_CREATE_CARD_STATE.getRequestState());
+      actualApplicationStateService.setUserState(
+          RequestState.REQUEST_CREATE_CARD_STATE.getRequestState());
       CardController cardController = new CardController();
       System.out.println("Please input the Cardname");
 
       String cardName = bufferedReader.readLine();
+      ScreenView screenView = homeController.getPersistScreenView();
 
-      ArrayList<String> lists = homeController.getPersistScreenView().getAllListsAndBoarsNames();
-      ArrayList<String> output = homeController.getPersistScreenView().getAllListsAndBoarsNames();
-
+      screenView.getAllLists();
+      ArrayList<String> output = screenView.getListNames();
       System.out.println("Please input the Destiantion for you card: ");
       for (String destiantion : output) {
 
@@ -69,25 +69,22 @@ public class DistributeController {
       int listIndex = Integer.parseInt(String.valueOf(boardChar[1]));
 
       Optional<CardView> newCard = cardController.createNewCard(cardName, boardIndex, listIndex);
-      ScreenView screenView = homeController.getPersistScreenView();
-
+      //  ScreenView screenView = homeController.getPersistScreenView();
       for (String actCardName : screenView.getCardNames()) {
         System.out.println(actCardName);
       }
       if (newCard.isPresent()) {
-        actualApplicationStateService
-            .setUserState(ResponseState.CARD_CREATED_SUCCSES_STATE.getState());
-
-
+        actualApplicationStateService.setUserState(
+            ResponseState.CARD_CREATED_SUCCSES_STATE.getState());
       }
 
-      if (actualApplicationStateService.getUserState()
+      if (actualApplicationStateService
+          .getUserState()
           .equals(ResponseState.CARD_CREATED_SUCCSES_STATE.getState())) {
         createCardPrint.getCardCreatedSuccsesfullyNotification();
-
-
       }
-      if (actualApplicationStateService.getUserState()
+      if (actualApplicationStateService
+          .getUserState()
           .equals(ResponseState.CARD_CREATED_FALLURE_STATE.getState())) {
         createCardPrint.getCardCreatedFallureNotification();
       }
@@ -107,7 +104,6 @@ public class DistributeController {
       } else {
         boardPrint.getBoardCreatedFallureNotification();
       }
-
     }
     if (request.equals("3")) {
 
@@ -119,8 +115,8 @@ public class DistributeController {
       ArrayList<String> boardNames = homeController.getPersistScreenView().getAllBoardsNames();
       for (int i = 0; i < boardNames.size(); i++) {
 
-        System.out
-            .println(homeController.getPersistScreenView().getAllBoardsNames().get(i) + " : " + i);
+        System.out.println(
+            homeController.getPersistScreenView().getAllBoardsNames().get(i) + " : " + i);
       }
 
       String destination = bufferedReader.readLine();
@@ -130,7 +126,8 @@ public class DistributeController {
       Optional<BoardListView> boardListView = listController.createList(listName, intDestination);
       if (boardListView.isPresent()) {
 
-        ArrayList<String> lists = homeController.getPersistScreenView().getAllListsAndBoarsNames();
+        homeController.getPersistScreenView().getAllLists();
+        ArrayList<String> lists = homeController.getPersistScreenView().getListNames();
         for (String list : lists) {
           System.out.println(list);
         }
@@ -145,7 +142,5 @@ public class DistributeController {
 
       screenController.saveScreen();
     }
-
   }
-
 }

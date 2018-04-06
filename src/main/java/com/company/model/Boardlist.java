@@ -12,15 +12,12 @@ public class Boardlist extends Model {
 
   public Boardlist(String boardlistName) {
     this.boardlistName = boardlistName;
-
-
   }
-
-
 
   public int getListId() {
     return listId;
   }
+
   public void setListId(int listId) {
     this.listId = listId;
   }
@@ -43,10 +40,6 @@ public class Boardlist extends Model {
 
   @Override
   public String toString() {
-    return "Boardlist{" +
-        "boardlistName='" + boardlistName + '\'' +
-        '}';
+    return "Boardlist{" + "boardlistName='" + boardlistName + '\'' + '}';
   }
-
-
 }

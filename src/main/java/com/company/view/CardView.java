@@ -3,7 +3,7 @@ package com.company.view;
 import com.company.model.Card;
 
 public class CardView {
-Card card;
+  private Card card;
 
   public CardView(Card card) {
     this.card = card;

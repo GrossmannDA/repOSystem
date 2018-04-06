@@ -5,20 +5,15 @@ import java.util.ArrayList;
 
 public class BoardPrint {
 
-  public void getBoardCreatedSuccsesfullyNotification(){
+  public void getBoardCreatedSuccsesfullyNotification() {
 
     System.out.println("Board was created succsessfully!");
-
   }
 
-  public  void getBoardCreatedFallureNotification(){
+  public void getBoardCreatedFallureNotification() {
 
     System.out.println("Board coulde be not created");
-
   }
 
-  public void getBoardInforamtions(ArrayList<BoardView> boards){
-
-  }
-
+  public void getBoardInforamtions(ArrayList<BoardView> boards) {}
 }

@@ -1,11 +1,7 @@
 package com.company.controller.state;
 
-/**
- * Dieser Service dient zur Aktualisierung des Anwendungsstatus
- */
-
+/** Dieser Service dient zur Aktualisierung des Anwendungsstatus */
 public class ActualApplicationStateService {
-
 
   private UserState userState = new UserState();
 

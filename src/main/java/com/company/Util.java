@@ -12,6 +12,5 @@ public class Util {
 
   public void createFile() {
     file = new File("SerTest.bin");
-
   }
 }

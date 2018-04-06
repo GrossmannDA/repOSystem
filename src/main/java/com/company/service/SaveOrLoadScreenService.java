@@ -5,14 +5,13 @@ import com.company.persistance.PersistanceState;
 import java.io.IOException;
 
 public class SaveOrLoadScreenService {
-//hier wird der screenLoad geladen
+  // hier wird der screenLoad geladen
   private Screen screenLoad;
 
   public SaveOrLoadScreenService() {
 
-    if(screenLoad == null){
+    if (screenLoad == null) {
       screenLoad = PersistanceState.getInstance().getScreen();
-     
     }
   }
 
@@ -23,7 +22,4 @@ public class SaveOrLoadScreenService {
   public void save() throws IOException {
     PersistanceState.getInstance().persist();
   }
-
-
-
 }
