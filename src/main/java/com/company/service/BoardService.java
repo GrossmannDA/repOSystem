@@ -1,49 +1,28 @@
 package com.company.service;
 
-import com.company.data.boardDAO;
-import com.company.presentation.model.Board;
-import java.util.ArrayList;
-import java.util.List;
+import com.company.model.Board;
+import com.company.model.Screen;
+import com.company.persistance.PersistanceState;
+import java.io.IOException;
 
-public class BoardService implements boardDAO {
+// kann auch model zurückgeben. Normalerweise wird immer das Model zurückgegeben.
+public class BoardService {
 
-  private List<Board> allBoards = new ArrayList<>();
+  // hier link to PersistanceState
+  //PersistanceState persistanceState = PersistanceState.getInstance();
+  // keine Status sollen hier gespeichert werden.
+  Screen screen = PersistanceState.getInstance().getScreen();
 
-  private Board board;
+  public BoardService() throws IOException, ClassNotFoundException {
 
-  public Board getBoard() {
+  }
+
+  public Board createBoard(String boardName) throws IOException, ClassNotFoundException {
+
+    Board board = new Board(boardName);
+
+    screen.getAllBoards().add(board);
+
     return board;
-  }
-
-  public void setBoard(Board board) {
-    this.board = board;
-  }
-
-
-  public List<Board> getAllBoards() {
-    return allBoards;
-  }
-
-  public void setAllBoards(List<Board> allBoards) {
-    this.allBoards = allBoards;
-  }
-
-  public void addAllBoards() {
-    allBoards.add(board);
-  }
-
-  public void create(String boardname) {
-
-    board = new Board(boardname);
-  }
-
-
-  public void update(Board board) {
-
-  }
-
-
-  public void delete(Board board) {
-
   }
 }

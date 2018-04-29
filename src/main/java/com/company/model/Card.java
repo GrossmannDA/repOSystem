@@ -1,24 +1,20 @@
-package com.company.presentation.model;
+package com.company.model;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Card extends Model {
 
   private String cardName;
   private String cardDescription;
-  private String comment;
-  private int assignt_to_list;
+  private ArrayList<String> comment = new ArrayList<>();
+
 
   public Card(String cardName) {
     this.cardName = cardName;
   }
 
-  public String getComment() {
+  public ArrayList<String> getComment() {
     return comment;
-  }
-
-  public void setComment(String comment) {
-    this.comment = comment;
   }
 
   public String getCardDescription() {
@@ -46,11 +42,9 @@ public class Card extends Model {
         '}';
   }
 
-  public int getAssignt_to_list() {
-    return assignt_to_list;
+  public void addComment(String comment) {
+    this.comment.add(comment);
   }
 
-  public void setAssignt_to_list(int assignt_to_list) {
-    this.assignt_to_list = assignt_to_list;
-  }
+
 }
