@@ -1,6 +1,5 @@
-package com.company.presentation.model;
+package com.company.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +8,18 @@ public class Boardlist extends Model {
   private String boardlistName;
 
   private List<Card> listCard = new ArrayList<>();
-
+  private int listId;
 
   public Boardlist(String boardlistName) {
     this.boardlistName = boardlistName;
+  }
+
+  public int getListId() {
+    return listId;
+  }
+
+  public void setListId(int listId) {
+    this.listId = listId;
   }
 
   public List<Card> getListCard() {
@@ -33,10 +40,6 @@ public class Boardlist extends Model {
 
   @Override
   public String toString() {
-    return "Boardlist{" +
-        "boardlistName='" + boardlistName + '\'' +
-        '}';
+    return "Boardlist{" + "boardlistName='" + boardlistName + '\'' + '}';
   }
-
-
 }

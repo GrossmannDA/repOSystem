@@ -1,16 +1,16 @@
 package com.company;
 
-
-import com.company.presentation.controller.BusinessLogic;
-import com.company.service.BoardService;
-
+import com.company.controller.DistributeController;
 import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
 
-  public static void main(String[] args) throws IOException, ClassNotFoundException {
-    BusinessLogic businessLogic = new BusinessLogic(new BoardService());
-    businessLogic.runApplication();
-  }
+  private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
+  public static void main(String[] args) throws IOException {
+    LOGGER.info("My first log");
+    DistributeController distributeController = new DistributeController();
+  }
 }
