@@ -12,7 +12,6 @@ http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
         <servlet-name>Servlet Name For Test</servlet-name>
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>Test JSP Servlet</servlet-name>
         <jsp-file>/home.html</jsp-file>
