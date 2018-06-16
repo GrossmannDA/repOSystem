@@ -4,6 +4,8 @@ import com.company.model.Board;
 import com.company.model.Screen;
 import com.company.persistance.PersistanceState;
 
+import java.util.Optional;
+
 // kann auch model zurückgeben. Normalerweise wird immer das Model zurückgegeben.
 public class BoardService {
 
@@ -19,5 +21,15 @@ public class BoardService {
     screen.getAllBoards().add(board);
 
     return board;
+  }
+
+  public Optional<Board> findBoardByName(String name) {
+    for (Board board : screen.getAllBoards()) {
+      if (board.getBoardName().equals(name)) {
+        return Optional.of(board);
+      }
+    }
+
+    return Optional.empty();
   }
 }
